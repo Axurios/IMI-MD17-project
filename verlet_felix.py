@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-
+from matplotlib.colors import LinearSegmentedColormap
 
 
 K = np.array([-20, -10, -17, 1.5])
@@ -65,31 +65,31 @@ q_0 = np.random.rand(n, 2)
 p_0 = np.random.rand(n, 2)
 
 
-
-fig, ax = plt.subplots()
-
-ax.set_xlim(-5, 5)
-ax.set_ylim(-5, 5)
-
-lines = [ax.plot([], [], 'o-', markersize=2)[0] for _ in range(n)]
-
-def init():
-    for line in lines:
-        line.set_data([], [])
-    return lines    
-
 trajectory, _ = verlet_scheme_n_particule(n, q_0, p_0, dt, m ,num_steps)
 
-def update(frame ):
-    for i, line in enumerate(lines):
-        line.set_data(trajectory[i, :frame, 0], trajectory[i, :frame, 1])
-        line.set_color(plt.cm.viridis(i/n))  # Use a colormap for different colors
-    return lines
+
+x = np.linspace(-5, 5, 100)
+y = np.linspace(-5, 5, 100)
+
+z=np.meshgrid(x,y)
 
 
+potential_grid = np.zeros((len(x), len(y)))
+for i in range(len(x)):
+    for j in range(len(y)):
+        potential_grid[i, j] = muller_potential(x[i], y[j])
 
-# Create the animation
-animation = FuncAnimation(fig, update, frames=num_steps, init_func=init, blit=True)
+#crop all value above 1 to 1
+potential_grid[potential_grid > 1] = 1
 
-# Show the animation
+
+plt.figure(figsize=(8, 6))
+plt.contourf(x, y, potential_grid, levels=50, cmap='viridis')
+plt.colorbar(label='Muller Potential')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Muller Potential Heat Map')
 plt.show()
+
+
+print(muller_potential(-2, 2))
