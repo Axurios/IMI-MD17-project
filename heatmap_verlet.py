@@ -17,6 +17,8 @@ def potential(x, y):
         S+= K[i]*np.exp(a[i] * (x - beta[i])**2 + b[i] * (x - beta[i])*(y- gamma[i])+ c[i]*(y - gamma[i])**2)
     return S
 
+
+
 # calcul des dérivées partielles
 def gradient_x(x, y):
     S=0
@@ -90,6 +92,7 @@ for i in range(N):
 
 trajectory, _ = verlet(N, q0, p0, dt, num_steps, m)
 
+"""
 # initialize the plot
 def init():
     part_fig.set_data([], [])
@@ -127,3 +130,4 @@ history_fig, = plt.plot([], [], lw=2.0, color='#2c70a3', alpha=0.5)
 animation = FuncAnimation(fig, update, frames=num_steps, init_func=init, blit=True, fargs=(part_fig, history_fig))
 plt.show()
 
+"""

@@ -25,6 +25,7 @@ def gradient_x(x, y):
         S+= K[i]* (2* a[i] * (x - beta[i]) + b[i] *(y- gamma[i]))*np.exp(a[i] * (x - beta[i])**2 + b[i] * (x - beta[i])*(y- gamma[i])+ c[i]*(y - gamma[i])**2)
     return S
 
+
 # Gradient du potentiel de Muller par rapport à y
 def gradient_y(x, y):
     S=0
@@ -75,10 +76,14 @@ def verlet(N, q0, p0, dt, num_steps, m):
     return trajectory, momenta
 
 
+N = 10  
+dt = 0.01 
+num_steps = 500  
+m = [1.0]*N  
 
 
 
-
+"""
 # parameters
 N = 10  
 dt = 0.01 
@@ -122,5 +127,16 @@ trajectory, _ = verlet(N, q0, p0, dt, num_steps, m)
 # Create the animation
 animation = FuncAnimation(fig, update, frames=num_steps, init_func=init, blit=True)
 
+#add heat map
+
+x = np.linspace(-5, 5, 100)
+y = np.linspace(-5, 5, 100)
+X, Y = np.meshgrid(x, y)
+Z = potential(X, Y)
+Z[Z > 1] = 1
+contour = ax.contourf(X, Y, Z, levels=50, cmap='viridis')
+
+
 # Show the animation
 plt.show()
+"""
