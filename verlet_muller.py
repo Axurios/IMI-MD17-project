@@ -53,3 +53,13 @@ def verlet_scheme_n_particule( q_0, p_0, dt, m, num_steps):
 
     return q, p
 
+
+# For learned potential
+def verlet_scheme_first_half_iteration(grad_v, q, p, dt, m):
+    p = p - dt*grad_v/2
+    q = q + dt*p/m
+    return q, p
+
+def verlet_scheme_second_half_iteration(grad_v,q, p, dt, m):
+    p = p - dt*grad_v/2
+    return q, p

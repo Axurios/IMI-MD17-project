@@ -1,7 +1,7 @@
 import verlet_muller
 import numpy as np
 
-num_samples = 10000  # Nombre de points de données
+num_samples = 100000  # Nombre de points de données
 q_train = np.random.uniform(low=-2, high=4, size=(num_samples,2))
 
 # Calculer le potentiel associé à chaque paire (x, y)

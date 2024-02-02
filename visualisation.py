@@ -7,8 +7,10 @@ dt = 0.01 #Pas de temps
 num_steps = 100  #Nombre d'itérations 
 m = np.ones(n) #Masse des particules
 
-q_0 = np.random.rand(n, 2)
-p_0 = np.random.rand(n, 2)
+
+#Initialisation des positions et des vitesses
+q_0 = np.random.rand(n, 2)*2-1
+p_0 = np.random.rand(n, 2)*2-1
 
 
 trajectory, _ = verlet_muller.verlet_scheme_n_particule(q_0, p_0, dt, m ,num_steps)
@@ -22,7 +24,7 @@ y = np.linspace(-5, 5, 100)
 potential_grid = np.zeros((len(x), len(y)))
 for i in range(len(x)):
     for j in range(len(y)):
-        potential_grid[i, j] = verlet_muller.muller_potential(x[i], y[j])
+        potential_grid[i, j] = verlet_muller.grad_muller_potential(np.array(x[i], y[j]))
 
 potential_grid[potential_grid > 1] = 1
 potential_grid=np.transpose(potential_grid)

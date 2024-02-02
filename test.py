@@ -1,5 +1,5 @@
 import verlet
-import verlet_felix
+import verlet_muller
 import numpy as np
 import matplotlib.pyplot as plt
 import heatmap_verlet
@@ -13,7 +13,7 @@ m = np.ones(N)
 q_0 = np.random.rand(N, 2)
 p_0 = np.random.rand(N, 2)
 trajectoires_1,_=heatmap_verlet.verlet(N, q_0, p_0, dt, num_steps, m)
-trajectoires_2,_=verlet_felix.verlet_scheme_n_particule(q_0, p_0, dt, m, num_steps)
+trajectoires_2,_=verlet_muller.verlet_scheme_n_particule(q_0, p_0, dt, m, num_steps)
 
 #heat map
 x = np.linspace(-5, 5, 100)
@@ -23,7 +23,7 @@ potential_grid_1 = np.zeros((len(x), len(y)))
 potential_grid_2 = np.zeros((len(x), len(y)))
 for i in range(len(x)):
     for j in range(len(y)):
-        potential_grid_1[i, j] = verlet_felix.muller_potential(x[i], y[j])
+        potential_grid_1[i, j] = verlet_muller.muller_potential(x[i], y[j])
         potential_grid_2[i, j] = heatmap_verlet.potential(x[i], y[j])
 potential_grid_1[potential_grid_1 > 1] = 1
 potential_grid_2[potential_grid_2 > 1] = 1
