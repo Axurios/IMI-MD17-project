@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import verlet_felix
+import verlet_muller
 
 n = 5 #Nombre de particules
 dt = 0.01 #Pas de temps
@@ -11,7 +11,7 @@ q_0 = np.random.rand(n, 2)
 p_0 = np.random.rand(n, 2)
 
 
-trajectory, _ = verlet_felix.verlet_scheme_n_particule(q_0, p_0, dt, m ,num_steps)
+trajectory, _ = verlet_muller.verlet_scheme_n_particule(q_0, p_0, dt, m ,num_steps)
 
 #plot the trajectories
 x = np.linspace(-5, 5, 100)
@@ -22,7 +22,7 @@ y = np.linspace(-5, 5, 100)
 potential_grid = np.zeros((len(x), len(y)))
 for i in range(len(x)):
     for j in range(len(y)):
-        potential_grid[i, j] = verlet_felix.muller_potential(x[i], y[j])
+        potential_grid[i, j] = verlet_muller.muller_potential(x[i], y[j])
 
 potential_grid[potential_grid > 1] = 1
 potential_grid=np.transpose(potential_grid)
@@ -66,6 +66,6 @@ def update(frame):
 # Run the simulation
 
 # Create the animation
-animation = verlet_felix.FuncAnimation(fig, update, frames=num_steps, init_func=init, blit=True)
+animation = verlet_muller.FuncAnimation(fig, update, frames=num_steps, init_func=init, blit=True)
 
 plt.show()
