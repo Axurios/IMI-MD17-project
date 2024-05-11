@@ -46,7 +46,7 @@ path_env = os.environ['PATH']
 from jax import devices
 
 # Download the dataset.
-filename = os.path.dirname(os.getcwd())+'/md17_aspirin.npz'
+filename = os.path.dirname(os.getcwd())+'/md17_ethanol.npz'
 
 
 def prepare_datasets(key, num_train, num_valid):
