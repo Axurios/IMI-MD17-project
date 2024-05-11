@@ -471,7 +471,7 @@ n_data=len(dataset['E'])
 n_batch_size=100
 temperature = 1000
 timestep_fs = 1.0
-num_steps = 10000
+num_steps = 100000
 
 
 random_array = jax.random.randint(key, (n_batch_size,), 1, len(dataset['E']))
