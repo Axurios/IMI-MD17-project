@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH -A yxs@v100               # account to charge
+#SBATCH -C v100-32g 
+#SBATCH --job-name=gpu-test         # name of job
+#SBATCH --nodes=1                    # we request one node
+#SBATCH --ntasks-per-node=1          # with one task per node (= number of GPUs here)
+#SBATCH --gres=gpu:1                 # number of GPUs per node (max 8 with gpu_p2, gpu_p4, gpu_p5)
+#SBATCH --time=07:00:00
+#SBATCH --cpus-per-task=10           # nombre de CPU par tache (1/4 des CPU du noeud 4-GPU)
+##SBATCH --hint=nomultithread 
+
+
+#module purge
+#module load pytorch-gpu/py3/2.2.0
+#module load cuda python
+
+module purge 
+
+#module load pytorch-gpu/py3/2.2.0
+#module load pytorch-gpu/py3/2.1.1
+module load cuda python
+module load cudnn/8.9.0.131-cuda
+which python > path_test
+
+
+
+#python -u train.py  > out_train
+#python -u run.py  > out_run
+python -u train_run.py  > out_run
+
+
