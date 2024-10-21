@@ -6,7 +6,6 @@ from tkinter import Tk, Label
 
 # Entry point of the program
 if __name__ == "__main__":
-    # create several players
     print("ok")
     fenetre = Tk()
 
