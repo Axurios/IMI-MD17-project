@@ -2,6 +2,7 @@
 This module is the main module of the program,
 and can be executed to run the needed part of the project
 """
+
 from tkinter import Tk, Label
 import Descriptor
 

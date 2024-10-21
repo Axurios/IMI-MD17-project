@@ -4,40 +4,46 @@ import torch.optim as optim
 from torch.utils.data import DataLoader, TensorDataset
 from sklearn.model_selection import train_test_split
 import pandas as pd
-import time 
+import time
+
 # Load training data from CSV file
-training_data = pd.read_csv('training_data.csv')
+training_data = pd.read_csv("training_data.csv")
 
 # Normalize x and y
-#training_data['x'] = (training_data['x'] - training_data['x'].mean()) / training_data['x'].std()
-#training_data['y'] = (training_data['y'] - training_data['y'].mean()) / training_data['y'].std()
+# training_data['x'] = (training_data['x'] - training_data['x'].mean()) / training_data['x'].std()
+# training_data['y'] = (training_data['y'] - training_data['y'].mean()) / training_data['y'].std()
 
 # Convert DataFrame to PyTorch tensors
-x_data = torch.tensor(training_data[['x', 'y']].values, dtype=torch.float32)
-grad_data = torch.tensor(training_data[['grad_x', 'grad_y']].values, dtype=torch.float32)
+x_data = torch.tensor(training_data[["x", "y"]].values, dtype=torch.float32)
+grad_data = torch.tensor(
+    training_data[["grad_x", "grad_y"]].values, dtype=torch.float32
+)
 
 # Split the data into training and validation sets
-x_train, x_val, grad_train, grad_val = train_test_split(x_data, grad_data, test_size=0.2, random_state=42)
+x_train, x_val, grad_train, grad_val = train_test_split(
+    x_data, grad_data, test_size=0.2, random_state=42
+)
 
 
-#print min grad
+# print min grad
 
 
-cliped_value=1000
+cliped_value = 1000
 
-#clip grad at cliped_value
+# clip grad at cliped_value
 grad_train[grad_train > cliped_value] = cliped_value
 grad_val[grad_val > cliped_value] = cliped_value
 
-#clip grad at -cliped_value
+# clip grad at -cliped_value
 grad_train[grad_train < -cliped_value] = -cliped_value
 grad_val[grad_val < -cliped_value] = -cliped_value
+
 
 # Define the neural network model
 class GradientModel(nn.Module):
     def __init__(self):
         super(GradientModel, self).__init__()
-        #Four layers
+        # Four layers
         self.fc1 = nn.Linear(2, 128)
         self.fc2 = nn.Linear(128, 128)
         self.fc3 = nn.Linear(128, 128)
@@ -49,7 +55,8 @@ class GradientModel(nn.Module):
         x = torch.tanh(self.fc3(x))
         x = self.fc4(x)
         return x
-    
+
+
 def weights_init(m):
     if isinstance(m, nn.Linear):
         nn.init.xavier_uniform_(m.weight)
@@ -85,7 +92,6 @@ class PotentialGradientModel(nn.Module):
         gradient = self.fc8(x_gradient)
 
         return potential, gradient
-
 
 
 """
