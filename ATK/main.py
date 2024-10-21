@@ -1,0 +1,9 @@
+"""
+This module is the main module of the program, and can be executed to run the needed part of the project
+"""
+
+
+# Entry point of the program
+if __name__ == "__main__":
+    # create several players
+    print("ok")
