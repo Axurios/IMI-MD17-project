@@ -1,0 +1,11 @@
+# Data manipulation and analysis
+pandas==1.5.3  # Adjust to latest stable version as needed
+numpy==1.23.5
+
+# Deep learning frameworks
+torch==2.0.1      # For PyTorch; adjust to preferred version
+
+# Visualization
+matplotlib==3.6.2
+seaborn==0.12.1
+
