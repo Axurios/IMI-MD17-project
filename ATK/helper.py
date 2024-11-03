@@ -14,11 +14,10 @@ def check_requirements(requirements_file="ATK/requirements.txt"):
 # Modified select_file function
 def select_file(file_name_var):
     file_path = filedialog.askopenfilename(
-        initialdir=os.getcwd(),
         title="Select a CSV file",
         filetypes=(("CSV files", "*.csv"), ("All files", "*.*"))
     )
     if file_path:
-        file_name_var.set(os.path.basename(file_path))  # Update the displayed filename # noqa:
+        file_name_var.set(file_path)  # Update the displayed filename # noqa:
         return file_path  # Return the file path to the caller
     return None
