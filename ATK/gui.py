@@ -1,7 +1,20 @@
 import os
 import pandas as pd
-from tkinter import Tk, Label, Button, StringVar, IntVar, Scale, HORIZONTAL, Text  # noqa
+from tkinter import (
+    Tk,
+    Label,
+    Button,
+    StringVar,
+    IntVar,
+    Scale,
+    HORIZONTAL,
+    Text,
+)  # noqa
 from helper import select_file  # noqa
+import matplotlib
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+matplotlib.use("TkAgg")
 
 
 class GUI:
@@ -16,6 +29,7 @@ class GUI:
         # Build the GUI components
         self.build()
         self.percentBar()
+        self.plot()
         # Start the main loop
         self.fenetre.mainloop()
 
@@ -25,7 +39,9 @@ class GUI:
         file_name_label.pack()
 
         # Button to trigger file selection
-        button = Button(self.fenetre, text="Select CSV File", command=self.select_file) # noqa:
+        button = Button(
+            self.fenetre, text="Select CSV File", command=self.select_file
+        )  # noqa:
         button.pack()
 
         # Trace the variable to call methods when it changes
@@ -40,10 +56,24 @@ class GUI:
         # Scale to select a percentage (1 to 100)
         self.percentage_var = IntVar(value=50)
         percentage_scale = Scale(
-            self.fenetre, from_=1, to=100, orient=HORIZONTAL,
-            variable=self.percentage_var, label="Select Percentage", length=100
+            self.fenetre,
+            from_=1,
+            to=100,
+            orient=HORIZONTAL,
+            variable=self.percentage_var,
+            label="Select Percentage",
+            length=100,
         )
         percentage_scale.pack()
+
+    def plot(self):
+        X = [1, 2, 3, 4, 5, 6, 7]
+        Y = [2, 3, 1, 6, 3, 4, 0]
+        figure = Figure(figsize=(10, 10), dpi=50)
+        figure_canvas = FigureCanvasTkAgg(figure, self.fenetre)
+        axes = figure.add_subplot()
+        axes.plot(X, Y)
+        figure_canvas.get_tk_widget().pack()
 
     def select_file(self):
         # Function to select the file and update the file name variable

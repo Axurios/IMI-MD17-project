@@ -1,7 +1,7 @@
 from torch.nn import Linear
 from torch_geometric.nn import GCNConv
 
-#Graph convolutional neural networks (so we can understand the improvements brought by dimeNET)
+# Graph convolutional neural networks (so we can understand the improvements brought by dimeNET)
 class GCN(torch.nn.Module):
     def __init__(self):
         super().__init__()
@@ -13,9 +13,7 @@ class GCN(torch.nn.Module):
         return h, z
 model = GCN()
 print(model)
-GCN(
-  (gcn): GCNConv(34, 3)
-  (out): Linear(in_features=3, out_features=4, bias=True)
+GCN(gcn = GCNConv(34, 3), out = Linear(in_features=3, out_features=4, bias=True)
 )
 
 #pretty animations we can reuse: %%capture
